@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="wallet">
+
+        <header class="wallet-header">
+
+            <div>
+                <p class="eyebrow">DIGITAL WALLET</p>
+                <h1 id="greeting"></h1>
+            </div>
+
+            <div class="user">
+                <span>BO</span>
+            </div>
+        </header>
+
+        <section class="balance-card">
+            <p>Available Balance</p>
+            <h2 id="balance">₦0.00</h2>
+
+            <div class="balance-actions">
+                <button id="add-money-btn">Add Money</button>
+                <button id="withdraw-btn">Withdraw</button>
+            </div>
+        </section>
+
+        <section class="send-money">
+            <div class="section-heading">
+                <p class="eyebrow">TRANSFER</p>
+                <h2>Send Money</h2>
+            </div>
+
+            <form id="send-form">
+                <div class="form-group">
+                    <label for="recipient">Recipient</label>
+                    <input 
+                        type="text"
+                        id="recipient"
+                        placeholder="Enter recipient"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="send-amount">Amount</label>
+                    <input
+                        type="number"
+                        id="send-amount"
+                        placeholder="₦0.00"
+                        min="1"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+                <button type="submit">Send Money</button>
+            </form>
+        </section>
+
+        <section class="transactions">
+
+            <div class="section-heading">
+                <p class="eyebrow">ACTIVITY</p>
+                <h2>Recent Transactions <span id="transaction-count"></span></h2>
+            </div>
+
+            
+
+            <div id="transaction-list">
+                <!--Transactions will appear here-->
+
+            </div>
+
+            <button id="clear-transactions-btn">Clear Transactions</button>
+
+            <div id="transaction-details" class="transaction-details hidden">
+                <div class="transaction-details-content">
+                    <button id="close-transaction-details">×</button>
+                    <h2 id="details-name"></h2>
+                    <p id="details-type"></p>
+                    <h2 id="details-amount"></h2>
+                    <p id="details-date"></p>
+                    <div class="transaction-id-row">
+                        <p id="details-id"></p>
+                        <button id="copy-transaction-id">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,513 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.wallet {
+    width: min(1100px, 90%);
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+.wallet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #777777;
+    margin-bottom: 8px;
+}
+
+.wallet-header h1 {
+    font-size: 32px;
+}
+
+.user {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user span {
+    font-size: 13px;
+}
+
+.balance-card {
+    padding: 35px;
+    border: 1px solid #252525;
+    background: #111111;
+    margin-bottom: 60px;
+}
+
+.balance-card > p {
+    color: #777777;
+    font-size: 13px;
+}
+
+.balance-card h2 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    margin: 5px 0 30px;
+}
+
+.balance-actions {
+    display: flex;
+    gap: 12px;
+
+}
+
+.balance-actions button {
+    padding: 12px 20px;
+    border: 1px solid #333333;
+    background: transparent;
+    color: #ffffff;
+}
+
+.balance-actions button:first-child {
+    background: teal;
+    border-color: teal;
+    color: #ffffff;
+}
+
+.balance-actions button:hover {
+    opacity: 0.75;
+}
+
+.transactions {
+    margin-top: 60px;
+
+}
+
+#transaction-list {
+    border-top: 1px solid #252525;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+    
+}
+
+.transaction.deposit {
+    border: 3px solid #2ecc71;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #f4ecfd;
+    color: #16a34a;
+    border-left: 8px solid #2e8b57;
+}
+
+.transaction.withdrawal {
+    border: 3px solid #e74c3c;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.transaction.transfer {
+    border: 3px solid #3498db;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.empty-transactions {
+    text-align: center;
+    padding: 30px 0;
+    opacity: 0.6;
+    font-size: 14px;
+}
+
+.form-group {
+    padding-bottom: 20px;
+}
+
+.transaction-amount {
+    font-weight: 600;
+}
+
+#clear-transactions-btn {
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 13px;
+    cursor: pointer;
+    color: #b91c1c;
+}
+
+#clear-transactions-btn:hover {
+    background: #fee2e2;
+}
+
+#transaction-count {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.6;
+}
+
+
+.empty-transactions p {
+    margin: 0.0 6px;
+    font-weight: 600;
+}
+
+.empty-transactions span {
+    font-size: 13px
+}
+
+.transaction {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s;
+}
+
+.transaction:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0,0, 0.08);
+}
+
+.transaction h3 {
+    margin: 0 0 4px;
+    font-size: 14px;
+}
+
+.transaction p {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.6
+}
+
+.transaction-amount {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.transaction.deposit .transaction-amount {
+    color: #2e8b57;
+}
+
+.transaction.withdrawal .transaction-amount {
+    color: #b91c1c;
+}
+
+.transaction.transfer .transaction-amount {
+    color: #1d4ed8;
+}
+
+#transaction-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#transaction-list::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #cbd5e1;
+}
+
+#transaction-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.transaction-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+
+
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.transaction-details-content {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+
+    padding: 24px;
+    box-sizing: border-box;
+
+    border-radius: 18px;
+    background: #f5f5f5;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(0) scale(1);
+    transition: transform 0.2s ease;
+}
+
+#close-transaction-details {
+    position: absolute;
+    top: 0;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#details-name {
+    margin: 0 40px 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+    padding-top: 28px;
+}
+
+#details-type {
+    margin: 0 0 15px;
+    color: #666;
+    font-size: 14px;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+    color: #555;
+}
+
+#details-amount {
+    margin: 0 0 15px;
+   
+    font-size: 32px;
+    font-weight: 700;
+    color: black;
+}
+
+#details-date,
+#details-id {
+    margin: 8px 0;
+    color: #666;
+    font-size: 12px;
+    word-break: break-all;
+}
+
+#details-id {
+    margin-top: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #e9e9e9;
+    color: #555;
+    font-size: 12px;
+    word-break: break-all;
+}
+
+.transaction-details.deposit .transaction-details-content {
+    border-top: 4px solid #2e8b57;
+}
+
+.transaction-details.withdrawal .transaction-details-content {
+    border-top: 4px solid #d9534f;
+}
+
+.transaction-details.transfer .transaction-details-content {
+    border-top: 4px solid #4a6cf7;
+}
+
+.transaction-details.deposit {
+    border-left: 4px solid #2e8b57;
+}
+
+.transaction-details.hidden .transaction-details-content {
+    transform: translateY(10px) scale(0.98);
+}
+
+.transaction-details.withdrawal {
+    border-left: 4px solid #d9534f;
+}
+
+.transaction-details.transfer {
+    border-left: 4px solid #4a6cf7;
+}
+
+.transaction-details.deposit #details-name {
+    color: #2e8b57;
+}
+
+.transaction-details.withdrawal #details-name {
+    color: #d9534f;
+}
+
+.transaction-details.transfer #details-name {
+    color: #4a6cf7;
+}
+
+.transaction-id-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.transaction-id-row #details-id {
+    flex: 1;
+    margin: 0;
+}
+
+#copy-transaction-id {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .wallet {
+        width: 92%;
+        padding: 30px 0;
+
+    }
+
+    .wallet-header {
+        margin-bottom: 30px
+    }
+
+    .wallet-header h1 {
+        font-size: 26px;
+    }
+
+    .balance-card {
+        padding: 25px;
+        margin-bottom: 40px;
+    }
+
+    .balance-card h2 {
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+    }
+
+    .balance-actions {
+        flex-direction: column;
+    }
+
+    .balance-actions button {
+        width: 100%;
+    }
+
+    .transactions {
+        margin-top: 40px;
+    }
+
+    .transaction {
+        padding: 14px;
+    }
+
+    .transaction h3 {
+        font-size: 13px;
+    }
+
+    .transaction p {
+        font-size: 13px;
+    }
+
+    .transaction-amount {
+        font-size: 13px;
+    }
+
+    .transaction-details-content {
+        width: 92%;
+        max-width: 420px;
+        padding: 20px;
+    }
+
+    #details-name {
+        font-size: 18px;
+    }
+
+    #details-amount {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wallet {
+        width: 94%;
+        padding: 20px 0;
+
+    }
+
+    .waller-header h1 {
+        font-size: 22px;
+    }
+
+    .balance-card {
+        padding: 20px;
+
+    }
+
+    .balance-card h2 {
+        font-size: 2.1rem;
+    }
+
+    .transaction {
+        gap: 12px;
+    }
+
+    .transaction > div {
+        min-width: 0;
+    }
+
+    .transaction h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 190px;
+    }
+
+    .transaction-amount {
+        flex-shrink: 0;
+    }
+
+    .transaction-details-content {
+        width: 94%;
+    }
+}
